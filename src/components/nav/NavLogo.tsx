@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
-export function MainNav({
+export function NavLogo({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {

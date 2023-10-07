@@ -17,6 +17,7 @@ export function NavLogo({
       >
         Space Tech
       </Link>
+
     </nav>
   );
 }

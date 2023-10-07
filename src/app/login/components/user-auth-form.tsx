@@ -16,6 +16,7 @@ import { AlertDestructive } from "@/components/Alert";
 import processUserSignUp from "@/lib/processUserSignUp";
 import getData from "@/lib/firebase/getData";
 import SetLocalStorage from "@/lib/SetLocalStorage";
+import { DocumentSnapshot } from "firebase/firestore";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -47,8 +48,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         break;
     }
 
-    if (error) {
+    if (error || result === null) {
       setError("There's an error while signing you up");
+      return
     }
 
     processUserSignUp(email, provider, result);
@@ -71,10 +73,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }
 
     const docsnap = await getData("user", email);
-    console.log(docsnap);
     if (docsnap.error || !docsnap.result?.exists() || docsnap === null) {
       setIsLoading(false);
       setError("There's an error while signing you up. Please make sure your email and password are correct");
+      return
     }
 
     const userData = docsnap.result.data();

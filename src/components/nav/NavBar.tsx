@@ -7,7 +7,7 @@ import { useAuthContext } from "@/app/context/AuthContext";
 import Link from "next/link";
 
 export default function NavBar() {
-  const { user } = useAuthContext();
+  const user = useAuthContext();
 
   return (
     <nav className="flex h-16 items-center px-4">

@@ -55,18 +55,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       setError("There's an error while signing you up");
     }
 
-    if (result == null) {
+    if (result === null || result.user.email === null) {
       console.log(error);
       setError("There's an error while signing you up");
+      return
     }
 
-    processUserSignUp(result?.user.email, provider, result)
+    await processUserSignUp(result.user.email, provider, result)
 
   };
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    console.log(event);
     setIsLoading(true);
     setError("");
 
@@ -86,9 +86,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }
 
     const res = await signUp(email, password);
-    console.log(res);
 
-    await processUserSignUp(email, "email", res)
+    if (res.result === null || res.error) {
+      setError("There's an error while signing you up")
+      return
+    }
+
+    await processUserSignUp(email, "email", res.result)
     setIsLoading(false);
 
   }

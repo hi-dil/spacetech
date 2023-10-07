@@ -1,14 +1,14 @@
 import SetLocalStorage from "@/lib/SetLocalStorage";
 import AddData from "@/lib/firebase/AddData";
 import getData from "@/lib/firebase/getData";
+import { UserCredential } from "firebase/auth";
 
-export default async function (email: string, provider: string, result) {
+export default async function processUserSignUp (email: string, provider: string, result: UserCredential) {
   const docsnap = await getData("user", email);
 
-  console.log(email);
 
   if (docsnap.error) {
-    throw new Error(docsnap.error.message);
+    return
   }
 
   const defaultImageURL =
@@ -40,7 +40,7 @@ export default async function (email: string, provider: string, result) {
         : defaultImageURL;
     }
 
-    const addUser = await AddData("user", userData.email, userData);
+    const addUser = await AddData(userData.email, userData);
     if (addUser.error) {
       console.log(addUser.error);
       throw new Error("There's an error adding your data");

@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="w-full h-screen flex flex-col items-center gap-2 ">
       <Search />
-      {projects.map((project) => <Link href={`/project/${project.id}`}><ProjectCard {...project} /></Link>)}
+      {projects.map((project) => <Link key={project.id} href={`/project/${project.id}`}><ProjectCard {...project} /></Link>)}
     </div>
   );
 }

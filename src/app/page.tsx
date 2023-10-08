@@ -3,7 +3,7 @@ import { Search } from "@/components/Search";
 import Link from "next/link";
 import { DisplayProjects } from "./component/ProjectList";
 
-export const revalidate = 0
+export const revalidate = 300
 
 export default function Home() {
 

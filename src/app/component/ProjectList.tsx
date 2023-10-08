@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export async function DisplayProjects() {
   let data: ProjectType[] = [];
-  const maxRows = 5;
+  const maxRows = 20;
   const startindex = 0;
 
   const getProjects = await getProjectsByPagination(maxRows, startindex);

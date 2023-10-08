@@ -223,7 +223,7 @@ export function CreateForm({ className, ...props }: UserAuthFormProps) {
               className="mt-2"
               onClick={(e) => addLink(e)}
             >
-              Add Tags
+              Add Link
             </Button>
           </div>
 
@@ -265,7 +265,7 @@ export function CreateForm({ className, ...props }: UserAuthFormProps) {
               className="mt-2"
               onClick={(e) => addTag(e)}
             >
-              Add Tags
+              Add Tag
             </Button>
           </div>
 

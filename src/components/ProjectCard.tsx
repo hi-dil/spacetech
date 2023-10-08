@@ -18,6 +18,8 @@ type Props = {
 export default function ProjectCard(
   { title, description, author, tags }: Props,
 ) {
+
+  tags = tags.slice(0, 7)
   return (
     <Card className="w-[350px] md:w-[700px]">
       <CardHeader>

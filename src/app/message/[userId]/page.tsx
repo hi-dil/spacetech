@@ -47,7 +47,7 @@ export default function MessagePage({ params: { userId } }: Params) {
           />
           <div className="w-full flex justify-end mt-3">
             <Button className="w-[180px]">
-              Post a comment
+              Send Message
             </Button>
           </div>
 

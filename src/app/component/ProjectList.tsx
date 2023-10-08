@@ -18,8 +18,6 @@ export async function DisplayProjects() {
   
   data = [...data, ...getProjects.result]
 
-  console.log(data)
-
   return (
     <div className="w-full h-screen flex flex-col items-center gap-2">
       {data.map((project) => (

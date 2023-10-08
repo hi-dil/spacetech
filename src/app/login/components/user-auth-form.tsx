@@ -73,7 +73,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }
 
     const getUserData = await getUserByEmail(email);
-    console.log(getUserData)
 
     if (getUserData.error || !getUserData.result || getUserData === null) {
       setIsLoading(false);

@@ -72,7 +72,7 @@ export default async function ProjectDetails({ projectID }: Props) {
     <>
       <div className="flex">
         <div className=" mx-20 w-full">
-          <p className="text-5xl font-bold">{title}</p>
+          <p className="text-3xl font-bold">{title}</p>
           <p className="text-secondary-foreground text-xl">
             Author: {displayName}
           </p>

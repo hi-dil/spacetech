@@ -89,7 +89,6 @@ export function CreateForm({ className, ...props }: UserAuthFormProps) {
     }
 
     const gptcall = await generateTagsFromDescription(description);
-    console.log(gptcall)
     if (gptcall.error || gptcall.result?.length === 0 || gptcall.result === null) {
       console.log(error)
       setIsGenLoading(false)

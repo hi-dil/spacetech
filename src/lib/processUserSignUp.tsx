@@ -7,6 +7,7 @@ export default async function processUserSignUp(
   email: string,
   provider: string,
   result: UserCredential,
+  displayName: string
 ) {
   if (provider !== "email"){
     email = result.user.email ? result.user.email : ""
@@ -21,7 +22,7 @@ export default async function processUserSignUp(
     let userData: FirebaseUser = {
       userId: "",
       email: "",
-      displayName: "",
+      displayName: displayName,
       imageURL: defaultImageURL,
       createDate: new Date(),
       lastAccessDate: new Date(),

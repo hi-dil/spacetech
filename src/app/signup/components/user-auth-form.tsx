@@ -15,12 +15,15 @@ import { AlertDestructive } from "@/components/Alert";
 import validator from "validator";
 import signUp from "@/lib/firebase/signUp";
 import processUserSignUp from "@/lib/processUserSignUp";
+import { useRouter } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailClass, setEmailClass] = useState("");
@@ -61,7 +64,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return
     }
 
-    await processUserSignUp(result.user.email, provider, result)
+    await processUserSignUp(result.user.email, provider, result, "")
+    router.push("/")
 
   };
 
@@ -92,9 +96,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return
     }
 
-    await processUserSignUp(email, "email", res.result)
+    await processUserSignUp(email, "email", res.result, displayName)
     setIsLoading(false);
-
+    router.push("/")
   }
   return (
     <div className={cn("grid gap-4", className)} {...props}>
@@ -118,6 +122,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               onChange={(e) => {
                 setEmail(e.target.value);
                 setEmailClass("");
+              }}
+            />
+            <Input
+              id="displayName"
+              placeholder="Display Name"
+              type="text"
+              required
+              name="displayName"
+              autoCorrect="off"
+              disabled={isLoading}
+              onChange={(e) => {
+                setDisplayName(e.target.value)
               }}
             />
             <Input

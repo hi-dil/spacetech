@@ -17,10 +17,12 @@ import processUserSignUp from "@/lib/processUserSignUp";
 import { getUserByEmail } from "@/lib/firebase/getData";
 import SetLocalStorage from "@/lib/SetLocalStorage";
 import { DocumentSnapshot } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +55,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return
     }
 
-    processUserSignUp("", provider, result);
+    processUserSignUp("", provider, result, "");
+    router.push("/")
+
   };
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -84,6 +88,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     // store some user data in local storage
     SetLocalStorage(userData.email, userData.displayName, userData.imageURL, userData.userId);
     setIsLoading(false);
+    router.push("/")
+
   }
   return (
     <div className={cn("grid gap-4", className)} {...props}>

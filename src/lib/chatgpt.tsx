@@ -20,7 +20,7 @@ export async function generateTagsFromDescription(description: string) {
         model: "gpt-4",
         messages: [{ role: "user", content: prompt }],
         temperature: 1.3,
-        max_tokens: 2000,
+        max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,

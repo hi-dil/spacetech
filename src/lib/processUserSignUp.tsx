@@ -1,21 +1,25 @@
 import SetLocalStorage from "@/lib/SetLocalStorage";
-import AddData from "@/lib/firebase/AddData";
-import getData from "@/lib/firebase/getData";
+import { getUserByEmail } from "@/lib/firebase/getData";
 import { UserCredential } from "firebase/auth";
+import { AddUserData } from "./firebase/AddData";
 
-export default async function processUserSignUp (email: string, provider: string, result: UserCredential) {
-  const docsnap = await getData("user", email);
-
-
-  if (docsnap.error) {
-    return
+export default async function processUserSignUp(
+  email: string,
+  provider: string,
+  result: UserCredential,
+) {
+  if (provider !== "email"){
+    email = result.user.email ? result.user.email : ""
   }
+
+  const getUserData = await getUserByEmail(email);
 
   const defaultImageURL =
     "https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg";
 
-  if (!docsnap.result?.exists()) {
+  if (getUserData.error || !getUserData.result || getUserData === null) {
     let userData: FirebaseUser = {
+      userId: "",
       email: "",
       displayName: "",
       imageURL: defaultImageURL,
@@ -40,20 +44,20 @@ export default async function processUserSignUp (email: string, provider: string
         : defaultImageURL;
     }
 
-    const addUser = await AddData(userData.email, userData);
+    const addUser = await AddUserData(userData);
     if (addUser.error) {
       console.log(addUser.error);
       throw new Error("There's an error adding your data");
     }
 
     // store some user data in local storage
-    SetLocalStorage(userData.email, userData.displayName, userData.imageURL);
+    SetLocalStorage(userData.email, userData.displayName, userData.imageURL, userData.userId);
 
     return;
   }
 
-  const userData = docsnap.result.data();
+  const userData = getUserData.result
 
   // store some user data in local storage
-  SetLocalStorage(userData.email, userData.displayName, userData.imageURL);
+  SetLocalStorage(userData.email, userData.displayName, userData.imageURL, userData.userId);
 }

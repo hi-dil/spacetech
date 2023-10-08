@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import { AlertDestructive } from "@/components/Alert";
 import processUserSignUp from "@/lib/processUserSignUp";
-import getData from "@/lib/firebase/getData";
+import { getUserByEmail } from "@/lib/firebase/getData";
 import SetLocalStorage from "@/lib/SetLocalStorage";
 import { DocumentSnapshot } from "firebase/firestore";
 
@@ -53,7 +53,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return
     }
 
-    processUserSignUp(email, provider, result);
+    processUserSignUp("", provider, result);
   };
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -72,16 +72,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return;
     }
 
-    const docsnap = await getData("user", email);
-    if (docsnap.error || !docsnap.result?.exists() || docsnap === null) {
+    const getUserData = await getUserByEmail(email);
+    console.log(getUserData)
+
+    if (getUserData.error || !getUserData.result || getUserData === null) {
       setIsLoading(false);
       setError("There's an error while signing you up. Please make sure your email and password are correct");
       return
     }
 
-    const userData = docsnap.result.data();
+    const userData = getUserData.result;
     // store some user data in local storage
-    SetLocalStorage(userData.email, userData.displayName, userData.imageURL);
+    SetLocalStorage(userData.email, userData.displayName, userData.imageURL, userData.userId);
     setIsLoading(false);
   }
   return (

@@ -1,4 +1,5 @@
 type FirebaseUser = {
+  userId: string
   email: string,
   displayName: string,
   createDate: Date,
@@ -13,7 +14,8 @@ type FirebaseUser = {
 
 type ProjectType = {
   recId: string,
-  userEmail: string,
+  userId: string,
+  displayName: string,
   title: string,
   description: string,
   tags: string[],

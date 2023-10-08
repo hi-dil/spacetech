@@ -10,13 +10,13 @@ export default async function ProjectDetails({ projectID }: Props) {
 
 
   if (getProductDetails.error || getProductDetails.result === null) {
-    return <div>There's was something wrong when getting the product data</div>;
+    return <div>There&apos;s was something wrong when getting the product data</div>;
   }
 
   const projectData = getProductDetails.result.data();
 
   if (projectData == null) {
-    return <div>There's was something wrong when getting the product data</div>;
+    return <div>There&apos;s was something wrong when getting the product data</div>;
   }
 
   const { title, displayName, description, tags } = projectData;

@@ -113,8 +113,8 @@ export function CreateForm({ className, ...props }: UserAuthFormProps) {
           <div>
             <Label htmlFor="tags">Tags</Label>
             <div>
-              {tags.map((tag) => (
-                <Badge variant="secondary" className="m-1">
+              {tags.map((tag, index) => (
+                <Badge key={index} variant="secondary" className="m-1">
                   {tag}
                   <span>
                     <Button

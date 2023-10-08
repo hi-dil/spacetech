@@ -90,9 +90,8 @@ export default async function ProjectDetails({ projectID }: Props) {
           <p className="mt-5 font-bold text-xl">Project Links</p>
           <div className="gap-2">
             {projectLinks.map((link: string, index: number) => (
-              <Link href={link}>
+              <Link key={index} href={link}>
                 <Badge
-                  key={index}
                   variant="secondary"
                   className="m-1 p-1 px-4 hover:bg-red-100 cursor-pointer"
                 >
@@ -137,8 +136,8 @@ export default async function ProjectDetails({ projectID }: Props) {
 
           <div className="flex flex-col w-full gap-3 mt-10">
             {forumdatas.map((forum) => (
-              <div className="w-full flex">
-                <Card key={forum.id} className="w-full">
+              <div key={forum.id} className="w-full flex">
+                <Card className="w-full">
                   <CardContent className="p-3">
                     <p className="font-bold text-l">{forum.username}</p>
                     <p>{forum.message}</p>

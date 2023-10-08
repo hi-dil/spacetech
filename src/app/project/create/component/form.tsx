@@ -187,8 +187,8 @@ export function CreateForm({ className, ...props }: UserAuthFormProps) {
           <div>
             <Label htmlFor="projectlinks">Project Links</Label>
             <div>
-              {projectLinks.map((link) => (
-                <Badge variant="secondary" className="m-1">
+              {projectLinks.map((link, index) => (
+                <Badge key={index} variant="secondary" className="m-1">
                   {link}
                   <span>
                     <Button

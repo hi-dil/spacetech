@@ -53,8 +53,8 @@ export default function MessagePage({ params: { userId } }: Params) {
 
           <div className="flex flex-col w-full gap-3 mt-10">
             {forumdatas.map((forum) => (
-              <div className="w-full flex">
-                <Card key={forum.id} className="w-full">
+              <div key={forum.id} className="w-full flex">
+                <Card className="w-full">
                   <CardContent className="p-3">
                     <p className="font-bold text-l">{forum.username}</p>
                     <p>{forum.message}</p>

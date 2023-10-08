@@ -22,4 +22,6 @@ type ProjectType = {
   createDate: Date,
   lastUpdateDate: Date,
   extdata: Object
+  projectLinks: string[]
+  contribute: string
 }
